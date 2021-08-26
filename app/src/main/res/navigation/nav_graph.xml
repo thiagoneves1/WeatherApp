@@ -33,5 +33,10 @@
         android:id="@+id/detailFragment"
         android:name="com.thiagoneves.weatherapp.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+
+        <argument
+            android:name="cityWeather"
+            app:argType="com.thiagoneves.weatherapp.model.CityWeather" />
+    </fragment>
 </navigation>

@@ -2,4 +2,8 @@
     <dimen name="fab_margin">200dp</dimen>
     <dimen name="smallGap">16dp</dimen>
     <dimen name="textSizeBig">65sp</dimen>
+    <dimen name="textSizeMedium">55sp</dimen>
+    <dimen name="textSizeSmall">35sp</dimen>
+    <dimen name="minHeightRow">65dp</dimen>
+    <dimen name="bigGap">14dp</dimen>
 </resources>
