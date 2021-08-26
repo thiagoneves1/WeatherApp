@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            mNavController.navigate(R.id.action_FirstFragment_to_SecondFragment);
+            mNavController.navigate(R.id.action_FirstFragment_to_SettingsFragment);
             return true;
         }
 

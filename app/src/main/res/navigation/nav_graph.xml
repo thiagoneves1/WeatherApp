@@ -12,8 +12,12 @@
         tools:layout="@layout/fragment_first">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
+            android:id="@+id/action_FirstFragment_to_SettingsFragment"
             app:destination="@id/SettingsFragment" />
+
+        <action
+            android:id="@+id/action_FirstFragment_to_DetailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/SettingsFragment"
@@ -25,4 +29,9 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.thiagoneves.weatherapp.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>
