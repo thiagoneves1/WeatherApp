@@ -29,7 +29,7 @@ public class DetailFragment extends Fragment {
         binding = FragmentDetailBinding.inflate(inflater, container, false);
 
         CityWeather cityWeather = DetailFragmentArgs.fromBundle(getArguments()).getCityWeather();
-        binding.textView.setText(cityWeather.getWeekDay());
+        binding.textView.setText(cityWeather.getTitle());
 
         return binding.getRoot();
     }

@@ -41,7 +41,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CityWeather cityWeather = mCityWeathers.get(position);
 
-        holder.textViewDay.setText(cityWeather.getWeekDay());
+        holder.textViewDay.setText(cityWeather.getTitle());
     }
 
     @Override
