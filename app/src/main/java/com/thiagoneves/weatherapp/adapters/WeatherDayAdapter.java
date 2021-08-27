@@ -10,18 +10,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.thiagoneves.weatherapp.R;
-import com.thiagoneves.weatherapp.interfaces.ItemClickListener;
-import com.thiagoneves.weatherapp.model.CityWeather;
+import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
+import com.thiagoneves.weatherapp.model.CityWeatherInfo;
 
 import java.util.List;
 
 public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.ViewHolder> {
 
-    private List<CityWeather> mCityWeathers;
-    private ItemClickListener mListener;
+    private List<CityWeatherInfo> mCityWeatherInfos;
+    private FirstFragmentContract.Presenter mListener;
 
-    public WeatherDayAdapter(List<CityWeather> cityWeathers, ItemClickListener listener) {
-        mCityWeathers = cityWeathers;
+    public WeatherDayAdapter(List<CityWeatherInfo> cityWeatherInfos, FirstFragmentContract.Presenter listener) {
+        mCityWeatherInfos = cityWeatherInfos;
         mListener = listener;
     }
 
@@ -39,14 +39,23 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        CityWeather cityWeather = mCityWeathers.get(position);
+        CityWeatherInfo cityWeatherInfo = mCityWeatherInfos.get(position);
 
-        holder.textViewDay.setText(cityWeather.getTitle());
+        holder.textViewDay.setText(cityWeatherInfo.getHumidity());
+    }
+
+    public void replaceData(List<CityWeatherInfo> cityWeatherInfos) {
+        setList(cityWeatherInfos);
+        notifyDataSetChanged();
+    }
+
+    private void setList(List<CityWeatherInfo> cityWeatherInfos) {
+        mCityWeatherInfos = cityWeatherInfos;
     }
 
     @Override
     public int getItemCount() {
-        return mCityWeathers.size();
+        return mCityWeatherInfos.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -58,7 +67,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mListener.onClick(v, getAdapterPosition());
+                    mListener.onClick(mCityWeatherInfos.get(getAdapterPosition()));
                 }
             });
 

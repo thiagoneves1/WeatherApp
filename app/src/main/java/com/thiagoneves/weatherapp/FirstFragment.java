@@ -1,7 +1,6 @@
 package com.thiagoneves.weatherapp;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +11,20 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.thiagoneves.weatherapp.adapters.WeatherDayAdapter;
-import com.thiagoneves.weatherapp.api.API;
-import com.thiagoneves.weatherapp.api.WeatherService;
 import com.thiagoneves.weatherapp.databinding.FragmentFirstBinding;
-import com.thiagoneves.weatherapp.interfaces.ItemClickListener;
+import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
 import com.thiagoneves.weatherapp.model.City;
-import com.thiagoneves.weatherapp.model.CityWeather;
+import com.thiagoneves.weatherapp.model.CityWeatherInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+public class FirstFragment extends Fragment implements FirstFragmentContract.View {
 
-public class FirstFragment extends Fragment implements ItemClickListener {
-
-    private static final String TAG = "FirstFragment";
     private FragmentFirstBinding binding;
-    private CityWeather mCityWeather;
-    private WeatherService mWeatherService;
+
+    private FirstFragmentContract.Presenter mPresenter;
+    private WeatherDayAdapter mAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState ) {
@@ -44,47 +37,18 @@ public class FirstFragment extends Fragment implements ItemClickListener {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO only for testing
-        List<CityWeather> cityWeathers = new ArrayList<>();
-        mCityWeather = new CityWeather();
-        mCityWeather.setTitle("London");
-        cityWeathers.add(mCityWeather);
-        WeatherDayAdapter adapter = new WeatherDayAdapter(cityWeathers, this);
+        //TODO is better create on the activity?
+        new FirstFragmentPresenter(this);
 
-        binding.recyclerview.setAdapter(adapter);
+        List<CityWeatherInfo> cityWeatherInfos = new ArrayList<>();
+        mAdapter = new WeatherDayAdapter(cityWeatherInfos, mPresenter);
+
+        binding.recyclerview.setAdapter(mAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        mWeatherService = API.getApi().create(WeatherService.class);
-        loadData();
         binding.recyclerview.setLayoutManager(linearLayoutManager);
 
-    }
-
-    private void loadData() {
-        Log.d(TAG, "loadData: ");
-
-        //TODO only for testing for now
-        Call<List<CityWeather>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(City.MADRI.getWoeid(), DateUtil.getToday());
-        Log.d(TAG, "loadData: cityWeather " + weatherByWoeidAndDate.request().url());
-
-        weatherByWoeidAndDate.enqueue(new Callback<List<CityWeather>>() {
-            @Override
-            public void onResponse(Call<List<CityWeather>> call, Response<List<CityWeather>> response) {
-                Log.d(TAG, "onResponse: " + response.code());
-                if(response.code()==200){
-                    //TODO add the result on the recyclerview
-                    List<CityWeather> cityWeathers = response.body();
-                    Log.d(TAG, "onResponse: humidity " + cityWeathers.get(0).getHumidity());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CityWeather>> call, Throwable t) {
-                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-            }
-        });
     }
 
     @Override
@@ -94,9 +58,42 @@ public class FirstFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onClick(View view, int position) {
-        FirstFragmentDirections.ActionFirstFragmentToDetailFragment action = FirstFragmentDirections.actionFirstFragmentToDetailFragment(mCityWeather);
+    public void showDetailCityWeather(CityWeatherInfo cityWeatherInfo) {
+        FirstFragmentDirections.ActionFirstFragmentToDetailFragment action = FirstFragmentDirections.actionFirstFragmentToDetailFragment(cityWeatherInfo);
         NavHostFragment.findNavController(FirstFragment.this)
                 .navigate(action);
     }
+
+    @Override
+    public void showLoadingUI() {
+        //TODO to implement
+    }
+
+    @Override
+    public void showCityWeatherList(City city) {
+        mAdapter.replaceData(city.getCityWeatherInfos());
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                binding.textViewTitle.setText(city.getTitle());
+            }
+        });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.subscribe();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mPresenter.unsubscribe();
+    }
+
+    @Override
+    public void setPresenter(@NonNull FirstFragmentContract.Presenter presenter) {
+        mPresenter = presenter;
+    }
+
 }

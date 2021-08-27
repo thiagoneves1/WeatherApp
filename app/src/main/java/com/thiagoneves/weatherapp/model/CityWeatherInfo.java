@@ -3,16 +3,8 @@ package com.thiagoneves.weatherapp.model;
 import java.io.Serializable;
 
 //TODO only for testing for now
-public class CityWeather implements Serializable {
-    public String getTitle() {
-        return title;
-    }
+public class CityWeatherInfo implements Serializable {
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    private String title;
 
     public String getHumidity() {
         return humidity;
@@ -24,6 +16,6 @@ public class CityWeather implements Serializable {
 
     private String humidity;
 
-    public CityWeather() {
+    public CityWeatherInfo() {
     }
 }

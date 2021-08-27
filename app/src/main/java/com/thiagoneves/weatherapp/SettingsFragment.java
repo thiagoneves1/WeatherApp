@@ -10,16 +10,14 @@ import androidx.fragment.app.Fragment;
 
 import com.thiagoneves.weatherapp.databinding.FragmentSettingsBinding;
 
-
+//TODO add the presenter here
 public class SettingsFragment extends Fragment {
 
     private FragmentSettingsBinding binding;
 
     @Override
     public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
+            LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
         return binding.getRoot();

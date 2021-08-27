@@ -1,18 +1,29 @@
 package com.thiagoneves.weatherapp.model;
 
-public enum City {
-    //TODO hardcoded only for testing
-    SAN_FRANCISCO(2487956),
-    LONDON(44418),
-    MADRI(766273);
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
-    private final int woeid;
+//TODO only for testing for now
+public class City implements Serializable {
+    private CityEnum mCityEnum;
+    private String title;
 
-    City(int woeid) {
-        this.woeid = woeid;
+    public City(CityEnum cityEnum) {
+        mCityEnum = cityEnum;
     }
 
-    public int getWoeid() {
-        return woeid;
+    public String getTitle() {
+        return mCityEnum.getTitleByWoeid(mCityEnum.getWoeid());
+    }
+
+    List<CityWeatherInfo> cityWeatherInfos = new ArrayList<>();
+
+    public List<CityWeatherInfo> getCityWeatherInfos() {
+        return cityWeatherInfos;
+    }
+
+    public void setCityWeatherInfos(List<CityWeatherInfo> cityWeatherInfos) {
+        this.cityWeatherInfos = cityWeatherInfos;
     }
 }

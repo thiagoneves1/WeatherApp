@@ -8,12 +8,13 @@
     tools:context=".FirstFragment">
 
     <TextView
-        android:id="@+id/textViewCity"
+        android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:textSize="@dimen/textSizeBig"
+        android:textColor="@color/black"
         tools:text="London"/>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +24,7 @@
         android:layout_marginTop="@dimen/smallGap"
         tools:listitem="@layout/weather_day_item_layout"
         tools:itemCount="7"
-        app:layout_constraintTop_toBottomOf="@id/textViewCity"
+        app:layout_constraintTop_toBottomOf="@id/textViewTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>

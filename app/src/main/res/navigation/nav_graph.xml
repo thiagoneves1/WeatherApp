@@ -36,7 +36,7 @@
         tools:layout="@layout/fragment_detail" >
 
         <argument
-            android:name="cityWeather"
-            app:argType="com.thiagoneves.weatherapp.model.CityWeather" />
+            android:name="cityWeatherInfo"
+            app:argType="com.thiagoneves.weatherapp.model.CityWeatherInfo" />
     </fragment>
 </navigation>
