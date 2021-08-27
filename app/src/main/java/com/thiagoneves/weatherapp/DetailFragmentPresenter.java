@@ -1,5 +1,6 @@
 package com.thiagoneves.weatherapp;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,7 +21,7 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     }
 
     @Override
-    public void subscribe() {}
+    public void subscribe(Context context) {}
 
     @Override
     public void unsubscribe() {}

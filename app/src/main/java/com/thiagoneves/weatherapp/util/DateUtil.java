@@ -1,4 +1,4 @@
-package com.thiagoneves.weatherapp;
+package com.thiagoneves.weatherapp.util;
 
 import androidx.annotation.NonNull;
 

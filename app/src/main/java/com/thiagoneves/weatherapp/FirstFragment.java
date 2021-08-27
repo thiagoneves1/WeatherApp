@@ -82,7 +82,7 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
     @Override
     public void onResume() {
         super.onResume();
-        mPresenter.subscribe();
+        mPresenter.subscribe(getContext());
     }
 
     @Override

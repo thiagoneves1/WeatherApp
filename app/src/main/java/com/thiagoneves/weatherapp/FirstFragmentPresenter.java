@@ -1,7 +1,7 @@
 package com.thiagoneves.weatherapp;
 
+import android.content.Context;
 import android.util.Log;
-import android.view.accessibility.AccessibilityNodeInfo;
 
 import androidx.annotation.NonNull;
 
@@ -12,8 +12,10 @@ import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
 import com.thiagoneves.weatherapp.model.City;
 import com.thiagoneves.weatherapp.model.CityEnum;
 import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.sharedpreferences.SharedPreferenceKeys;
+import com.thiagoneves.weatherapp.sharedpreferences.SharedPreferenceUtil;
+import com.thiagoneves.weatherapp.util.DateUtil;
 
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -36,8 +38,8 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
     }
 
     @Override
-    public void subscribe() {
-        loadData(false);
+    public void subscribe(Context context) {
+        loadData(context, false);
     }
 
     @Override
@@ -45,14 +47,14 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
         //TODO to implement or delete it
     }
 
-    public void loadData(boolean forceUpdate) {
+    public void loadData(Context context, boolean forceUpdate) {
         Log.d(TAG, "loadData: forceUpdate " + forceUpdate + " mFirstLoad " + mFirstLoad);
-        loadData(forceUpdate || mFirstLoad, true);
+        loadData(context, forceUpdate || mFirstLoad, true);
         mFirstLoad = false;
     }
 
     //TODO use the enum instead of boolean as param
-    public void loadData(boolean forceUpdate, boolean showLoading) {
+    public void loadData(Context context, boolean forceUpdate, boolean showLoading) {
         //TODO to implement showLoading on the view
         if (showLoading) {
             mView.showLoadingUI();
@@ -63,8 +65,12 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
             return;
         }
 
-        //TODO only for testing for now
-        Call<List<CityWeatherInfo>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(CityEnum.MADRI.getWoeid(), DateUtil.getToday());
+        String cityName = SharedPreferenceUtil.getString(context, SharedPreferenceKeys.CURRENT_CITY, CityEnum.getDefault().name());
+        CityEnum cityEnum = CityEnum.getByName(cityName);
+        City city = new City(cityEnum);
+
+        //TODO only for testing for now (list of info in one day), call for only one day, we need to call for the next 7 days from now
+        Call<List<CityWeatherInfo>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), DateUtil.getToday());
         Log.d(TAG, "loadData: cityWeather " + weatherByWoeidAndDate.request().url());
 
         weatherByWoeidAndDate.enqueue(new Callback<List<CityWeatherInfo>>() {
@@ -73,8 +79,6 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
                 if(response.code()==200) {
                     List<CityWeatherInfo> cityWeatherInfos = response.body();
                     if (cityWeatherInfos != null && !cityWeatherInfos.isEmpty()) {
-
-                        City city = new City(CityEnum.MADRI); //TODO get from sharedPreferences
                         city.setCityWeatherInfos(cityWeatherInfos);
                         mView.showCityWeatherList(city);
                     }

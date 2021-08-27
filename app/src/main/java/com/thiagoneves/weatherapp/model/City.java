@@ -13,8 +13,12 @@ public class City implements Serializable {
         mCityEnum = cityEnum;
     }
 
+    public int getWoeid() {
+        return mCityEnum.getWoeid();
+    }
+
     public String getTitle() {
-        return mCityEnum.getTitleByWoeid(mCityEnum.getWoeid());
+        return mCityEnum.getTitle();
     }
 
     List<CityWeatherInfo> cityWeatherInfos = new ArrayList<>();
