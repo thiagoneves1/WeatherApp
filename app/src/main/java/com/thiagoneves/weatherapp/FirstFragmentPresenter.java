@@ -1,5 +1,7 @@
 package com.thiagoneves.weatherapp;
 
+import static com.thiagoneves.weatherapp.util.DateUtil.DAYS_OF_WEEK;
+
 import android.content.Context;
 import android.util.Log;
 
@@ -28,6 +30,8 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
     private static final String TAG = "FirstFragmentPresenter";
     private WeatherService mWeatherService;
     private boolean mFirstLoad;
+    private int mCurrentPosition;
+    private List<String> mNextWeekDaysFromNow;
 
     @NonNull
     private final FirstFragmentContract.View mView;
@@ -36,6 +40,7 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
         mView = view;
         mWeatherService = API.getApi().create(WeatherService.class);
         mFirstLoad = true;
+        mCurrentPosition = 0;
     }
 
     @Override
@@ -45,7 +50,7 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
 
     @Override
     public void unsubscribe() {
-        //TODO to implement or delete it
+        //TODO to implement
     }
 
     public void loadData(Context context, boolean forceUpdate) {
@@ -70,8 +75,14 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
         CityEnum cityEnum = CityEnum.getByName(cityName);
         City city = new City(cityEnum);
 
-        //TODO only for testing for now (list of info in one day), call for only one day, we need to call for the next 7 days from now
-        Call<List<CityWeatherInfoDay>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), DateUtil.getToday());
+        mNextWeekDaysFromNow = DateUtil.getNextWeekDaysFromNow();
+
+        callInfoForTheDay(city, mNextWeekDaysFromNow.get(mCurrentPosition));
+    }
+
+    private void callInfoForTheDay(City city, String day) {
+        Call<List<CityWeatherInfoDay>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), day);
+
         Log.d(TAG, "loadData: cityWeather " + weatherByWoeidAndDate.request().url());
 
         weatherByWoeidAndDate.enqueue(new Callback<List<CityWeatherInfoDay>>() {
@@ -82,8 +93,12 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
                     if (cityWeatherInfoDays != null && !cityWeatherInfoDays.isEmpty()) {
                         Weather weather = new Weather(DateUtil.getToday());
                         weather.setCityWeatherInfos(cityWeatherInfoDays);
-                        city.setWeekWeathers(Arrays.asList(weather));
+                        city.addWeekWeathers(Arrays.asList(weather));
                         mView.showCityWeatherList(city);
+                        mCurrentPosition++;
+                        if (mCurrentPosition < DAYS_OF_WEEK) {
+                            callInfoForTheDay(city, mNextWeekDaysFromNow.get(mCurrentPosition));
+                        }
                     }
                 }
             }

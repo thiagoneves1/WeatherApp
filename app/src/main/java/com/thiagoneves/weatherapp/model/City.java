@@ -13,8 +13,12 @@ public class City implements Serializable {
         return weekWeathers;
     }
 
-    public void setWeekWeathers(List<Weather> weekWeathers) {
-        this.weekWeathers = weekWeathers;
+    public void addWeekWeathers(List<Weather> weekWeathers) {
+        if (this.weekWeathers == null) {
+            this.weekWeathers = weekWeathers;
+            return;
+        }
+        this.weekWeathers.addAll(weekWeathers);
     }
 
     List<Weather> weekWeathers = new ArrayList<>();

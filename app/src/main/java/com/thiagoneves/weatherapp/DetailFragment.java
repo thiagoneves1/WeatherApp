@@ -2,6 +2,7 @@ package com.thiagoneves.weatherapp;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -27,6 +28,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -39,6 +41,11 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         mPresenter.loadDataFromSafeArgs(getArguments());
 
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
     }
 
     @Override

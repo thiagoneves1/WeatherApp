@@ -29,7 +29,7 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         DateFormat formatter = getFormatter();
         List<String> stringsDates = new ArrayList<>();
-        for (int i = 1; i < DAYS_OF_WEEK; i++) {
+        for (int i = 1; i <= DAYS_OF_WEEK; i++) {
             stringsDates.add(formatter.format(calendar.getTime()));
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
