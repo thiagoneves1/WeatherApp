@@ -11,30 +11,33 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.thiagoneves.weatherapp.databinding.FragmentSettingsBinding;
+import com.thiagoneves.weatherapp.databinding.SettingsContainerBinding;
 import com.thiagoneves.weatherapp.interfaces.SettingsFragmentContract;
 
 
 public class SettingsFragment extends Fragment implements SettingsFragmentContract.View {
     private static final String TAG = "SettingsFragment";
-    private FragmentSettingsBinding binding;
+    private FragmentSettingsBinding mBinding;
+    private SettingsContainerBinding mSettingsContainerBinding;
     private SettingsFragmentContract.Presenter mPresenter;
 
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentSettingsBinding.inflate(inflater, container, false);
+        mBinding = FragmentSettingsBinding.inflate(inflater, container, false);
+        mSettingsContainerBinding = SettingsContainerBinding.bind(mBinding.getRoot());
 
-        mPresenter = new SettingsFragmentPresenter(this);//TODO use this one instead setPresent
+        mPresenter = new SettingsFragmentPresenter(this);
 
         setListener();
 
-        return binding.getRoot();
+        return mBinding.getRoot();
 
     }
 
     private void setListener() {
-        binding.radioGroupCities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        mSettingsContainerBinding.radioGroupCities.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 mPresenter.setCheckedId(getContext(), checkedId);
@@ -49,12 +52,12 @@ public class SettingsFragment extends Fragment implements SettingsFragmentContra
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        binding = null;
+        mBinding = null;
     }
 
     @Override
     public void showRadioValues(RadioButton radioButton, RadioGroup.LayoutParams params) {
-        binding.radioGroupCities.addView(radioButton, params);
+        mSettingsContainerBinding.radioGroupCities.addView(radioButton, params);
     }
 
     @Override

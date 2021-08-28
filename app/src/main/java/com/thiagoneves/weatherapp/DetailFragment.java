@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.thiagoneves.weatherapp.databinding.DetailContainerBinding;
 import com.thiagoneves.weatherapp.databinding.FragmentDetailBinding;
 import com.thiagoneves.weatherapp.interfaces.DetailFragmentContract;
 import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
@@ -17,7 +18,8 @@ import com.thiagoneves.weatherapp.util.TempValueUtil;
 
 public class DetailFragment extends Fragment implements DetailFragmentContract.View {
 
-    private FragmentDetailBinding binding;
+    private FragmentDetailBinding mBinding;
+    private DetailContainerBinding mDetailContainerBinding;
     private DetailFragmentContract.Presenter mPresenter;
 
     public DetailFragment() { }
@@ -31,25 +33,25 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        binding = FragmentDetailBinding.inflate(inflater, container, false);
+        mBinding = FragmentDetailBinding.inflate(inflater, container, false);
+        mDetailContainerBinding = DetailContainerBinding.bind(mBinding.getRoot());
         mPresenter = new DetailFragmentPresenter(this);
         mPresenter.loadDataFromSafeArgs(getArguments());
 
-        return binding.getRoot();
+        return mBinding.getRoot();
     }
 
     @Override
     public void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay) {
-        binding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
-
-        binding.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
-        binding.textMin.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMinTemp()));
-        binding.textMax.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMaxTemp()));
-        binding.textCurrent.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getCurrentTemp()));
-        binding.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
+        mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
+        mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
+        mDetailContainerBinding.textMin.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMinTemp()));
+        mDetailContainerBinding.textMax.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMaxTemp()));
+        mDetailContainerBinding.textCurrent.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getCurrentTemp()));
+        mDetailContainerBinding.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
         WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
-        binding.imageIconWeather.setBackground(ContextCompat.getDrawable(getContext(), weatherIcon.getDrawableId()));
-        binding.textHumidityValue.setText(cityWeatherInfoDay.getHumidity());
-        binding.textWindspeedValue.setText(cityWeatherInfoDay.getWindSpeed());
+        mDetailContainerBinding.imageIconWeather.setBackground(ContextCompat.getDrawable(getContext(), weatherIcon.getDrawableId()));
+        mDetailContainerBinding.textHumidityValue.setText(cityWeatherInfoDay.getHumidity());
+        mDetailContainerBinding.textWindspeedValue.setText(getString(R.string.windspeed_fromat, TempValueUtil.getFormatedValue(cityWeatherInfoDay.getWindSpeed())));
     }
 }

@@ -25,7 +25,7 @@ public class CityWeatherInfoDay implements Serializable {
     private String humidity;
 
     @SerializedName("wind_speed")
-    private String windSpeed;
+    private double windSpeed;
 
     public CityWeatherInfoDay() {
     }
@@ -78,11 +78,11 @@ public class CityWeatherInfoDay implements Serializable {
         this.humidity = humidity;
     }
 
-    public String getWindSpeed() {
+    public double getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(String windSpeed) {
+    public void setWindSpeed(double windSpeed) {
         this.windSpeed = windSpeed;
     }
 }
