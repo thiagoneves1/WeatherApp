@@ -25,7 +25,7 @@ public class SettingsFragment extends Fragment implements SettingsFragmentContra
 
         binding = FragmentSettingsBinding.inflate(inflater, container, false);
 
-        new SettingsFragmentPresenter(this);
+        mPresenter = new SettingsFragmentPresenter(this);//TODO use this one instead setPresent
 
         setListener();
 

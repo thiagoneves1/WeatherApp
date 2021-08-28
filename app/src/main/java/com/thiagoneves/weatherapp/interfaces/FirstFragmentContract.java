@@ -1,7 +1,7 @@
 package com.thiagoneves.weatherapp.interfaces;
 
 import com.thiagoneves.weatherapp.model.City;
-import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 
 public interface FirstFragmentContract {
 
@@ -9,15 +9,15 @@ public interface FirstFragmentContract {
 
         void showLoadingUI();
 
-        void showCityWeatherList(City cityWeatherInfos);
+        void showCityWeatherList(City city);
 
-        void showDetailCityWeather(CityWeatherInfo cityWeatherInfo);
+        void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void onClick(CityWeatherInfo cityWeatherInfo);
+        void onClick(CityWeatherInfoDay cityWeatherInfoDay);
 
     }
 }

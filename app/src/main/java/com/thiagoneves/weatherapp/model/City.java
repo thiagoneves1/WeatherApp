@@ -6,8 +6,18 @@ import java.util.List;
 
 //TODO only for testing for now
 public class City implements Serializable {
-    private CityEnum mCityEnum;
+    private CityEnum mCityEnum; //TODO remove enum, it's fixed only for development
     private String title;
+
+    public List<Weather> getWeekWeathers() {
+        return weekWeathers;
+    }
+
+    public void setWeekWeathers(List<Weather> weekWeathers) {
+        this.weekWeathers = weekWeathers;
+    }
+
+    List<Weather> weekWeathers = new ArrayList<>();
 
     public City(CityEnum cityEnum) {
         mCityEnum = cityEnum;
@@ -21,13 +31,5 @@ public class City implements Serializable {
         return mCityEnum.getTitle();
     }
 
-    List<CityWeatherInfo> cityWeatherInfos = new ArrayList<>();
 
-    public List<CityWeatherInfo> getCityWeatherInfos() {
-        return cityWeatherInfos;
-    }
-
-    public void setCityWeatherInfos(List<CityWeatherInfo> cityWeatherInfos) {
-        this.cityWeatherInfos = cityWeatherInfos;
-    }
 }

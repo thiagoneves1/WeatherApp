@@ -11,11 +11,13 @@ import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
 
 import com.thiagoneves.weatherapp.model.City;
 import com.thiagoneves.weatherapp.model.CityEnum;
-import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
+import com.thiagoneves.weatherapp.model.Weather;
 import com.thiagoneves.weatherapp.sharedpreferences.SharedPreferenceKeys;
 import com.thiagoneves.weatherapp.sharedpreferences.SharedPreferenceUtil;
 import com.thiagoneves.weatherapp.util.DateUtil;
 
+import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
@@ -70,30 +72,32 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
         City city = new City(cityEnum);
 
         //TODO only for testing for now (list of info in one day), call for only one day, we need to call for the next 7 days from now
-        Call<List<CityWeatherInfo>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), DateUtil.getToday());
+        Call<List<CityWeatherInfoDay>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), DateUtil.getToday());
         Log.d(TAG, "loadData: cityWeather " + weatherByWoeidAndDate.request().url());
 
-        weatherByWoeidAndDate.enqueue(new Callback<List<CityWeatherInfo>>() {
+        weatherByWoeidAndDate.enqueue(new Callback<List<CityWeatherInfoDay>>() {
             @Override
-            public void onResponse(@NonNull Call<List<CityWeatherInfo>> call, Response<List<CityWeatherInfo>> response) {
+            public void onResponse(@NonNull Call<List<CityWeatherInfoDay>> call, Response<List<CityWeatherInfoDay>> response) {
                 if(response.code()==200) {
-                    List<CityWeatherInfo> cityWeatherInfos = response.body();
-                    if (cityWeatherInfos != null && !cityWeatherInfos.isEmpty()) {
-                        city.setCityWeatherInfos(cityWeatherInfos);
+                    List<CityWeatherInfoDay> cityWeatherInfoDays = response.body();
+                    if (cityWeatherInfoDays != null && !cityWeatherInfoDays.isEmpty()) {
+                        Weather weather = new Weather(DateUtil.getToday());
+                        weather.setCityWeatherInfos(cityWeatherInfoDays);
+                        city.setWeekWeathers(Arrays.asList(weather));
                         mView.showCityWeatherList(city);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<List<CityWeatherInfo>> call, Throwable t) {
+            public void onFailure(Call<List<CityWeatherInfoDay>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
             }
         });
     }
 
     @Override
-    public void onClick(CityWeatherInfo cityWeatherInfo) {
-        mView.showDetailCityWeather(cityWeatherInfo);
+    public void onClick(CityWeatherInfoDay cityWeatherInfoDay) {
+        mView.showDetailCityWeather(cityWeatherInfoDay);
     }
 }

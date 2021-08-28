@@ -14,7 +14,8 @@ import com.thiagoneves.weatherapp.adapters.WeatherDayAdapter;
 import com.thiagoneves.weatherapp.databinding.FragmentFirstBinding;
 import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
 import com.thiagoneves.weatherapp.model.City;
-import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
+import com.thiagoneves.weatherapp.model.Weather;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +41,8 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
         //TODO is better create on the activity?
         new FirstFragmentPresenter(this);
 
-        List<CityWeatherInfo> cityWeatherInfos = new ArrayList<>();
-        mAdapter = new WeatherDayAdapter(cityWeatherInfos, mPresenter);
+        List<Weather> weathers = new ArrayList<>();
+        mAdapter = new WeatherDayAdapter(weathers, mPresenter);
 
         binding.recyclerview.setAdapter(mAdapter);
 
@@ -58,8 +59,8 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
     }
 
     @Override
-    public void showDetailCityWeather(CityWeatherInfo cityWeatherInfo) {
-        FirstFragmentDirections.ActionFirstFragmentToDetailFragment action = FirstFragmentDirections.actionFirstFragmentToDetailFragment(cityWeatherInfo);
+    public void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay) {
+        FirstFragmentDirections.ActionFirstFragmentToDetailFragment action = FirstFragmentDirections.actionFirstFragmentToDetailFragment(cityWeatherInfoDay);
         NavHostFragment.findNavController(FirstFragment.this)
                 .navigate(action);
     }
@@ -71,7 +72,7 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
 
     @Override
     public void showCityWeatherList(City city) {
-        mAdapter.replaceData(city.getCityWeatherInfos());
+        mAdapter.replaceData(city.getWeekWeathers());
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 binding.textViewTitle.setText(city.getTitle());

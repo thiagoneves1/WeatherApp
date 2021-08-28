@@ -5,11 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.thiagoneves.weatherapp.databinding.FragmentDetailBinding;
 import com.thiagoneves.weatherapp.interfaces.DetailFragmentContract;
-import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
+import com.thiagoneves.weatherapp.model.WeatherIcon;
+import com.thiagoneves.weatherapp.util.TempValueUtil;
 
 
 public class DetailFragment extends Fragment implements DetailFragmentContract.View {
@@ -41,7 +44,17 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     }
 
     @Override
-    public void showDetailCityWeather(CityWeatherInfo cityWeatherInfo) {
-        binding.textView.setText(cityWeatherInfo.getHumidity());
+    public void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay) {
+        binding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
+
+        binding.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
+        binding.textMin.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMinTemp()));
+        binding.textMax.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMaxTemp()));
+        binding.textCurrent.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getCurrentTemp()));
+        binding.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
+        WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
+        binding.imageIconWeather.setBackground(ContextCompat.getDrawable(getContext(), weatherIcon.getDrawableId()));
+        binding.textHumidityValue.setText(cityWeatherInfoDay.getHumidity());
+        binding.textWindspeedValue.setText(cityWeatherInfoDay.getWindSpeed());
     }
 }

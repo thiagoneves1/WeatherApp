@@ -2,13 +2,13 @@ package com.thiagoneves.weatherapp.interfaces;
 
 import android.os.Bundle;
 
-import com.thiagoneves.weatherapp.model.CityWeatherInfo;
+import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 
 public interface DetailFragmentContract {
 
     interface View extends BaseView<Presenter> {
 
-        void showDetailCityWeather(CityWeatherInfo cityWeatherInfo);
+        void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay);
 
     }
 
