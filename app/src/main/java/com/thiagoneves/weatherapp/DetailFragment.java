@@ -14,7 +14,7 @@ import com.thiagoneves.weatherapp.databinding.FragmentDetailBinding;
 import com.thiagoneves.weatherapp.interfaces.DetailFragmentContract;
 import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 import com.thiagoneves.weatherapp.model.WeatherIcon;
-import com.thiagoneves.weatherapp.util.TempValueUtil;
+import com.thiagoneves.weatherapp.util.FormatterUtil;
 
 
 public class DetailFragment extends Fragment implements DetailFragmentContract.View {
@@ -52,13 +52,13 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay) {
         mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
         mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
-        mDetailContainerBinding.textMin.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMinTemp()));
-        mDetailContainerBinding.textMax.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMaxTemp()));
-        mDetailContainerBinding.textCurrent.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getCurrentTemp()));
+        mDetailContainerBinding.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
+        mDetailContainerBinding.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
+        mDetailContainerBinding.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));
         mDetailContainerBinding.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
         WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
         mDetailContainerBinding.imageIconWeather.setBackground(ContextCompat.getDrawable(getContext(), weatherIcon.getDrawableId()));
         mDetailContainerBinding.textHumidityValue.setText(cityWeatherInfoDay.getHumidity());
-        mDetailContainerBinding.textWindspeedValue.setText(getString(R.string.windspeed_fromat, TempValueUtil.getFormatedValue(cityWeatherInfoDay.getWindSpeed())));
+        mDetailContainerBinding.textWindspeedValue.setText(getString(R.string.windspeed_fromat, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getWindSpeed())));
     }
 }

@@ -16,7 +16,7 @@ import com.thiagoneves.weatherapp.interfaces.FirstFragmentContract;
 import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 import com.thiagoneves.weatherapp.model.Weather;
 import com.thiagoneves.weatherapp.model.WeatherIcon;
-import com.thiagoneves.weatherapp.util.TempValueUtil;
+import com.thiagoneves.weatherapp.util.FormatterUtil;
 
 import java.util.List;
 
@@ -47,9 +47,9 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
         CityWeatherInfoDay cityWeatherInfoDay = mWathers.get(position).getCityWeatherInfos().get(0); //TODO to adjust this
 
         holder.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
-        holder.textMin.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMinTemp()));
-        holder.textMax.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getMaxTemp()));
-        holder.textCurrent.setText(TempValueUtil.getFormatedValue(cityWeatherInfoDay.getCurrentTemp()));
+        holder.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
+        holder.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
+        holder.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));
         holder.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
         WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
         holder.imageViewWeatherIcon.setBackground(ContextCompat.getDrawable(holder.imageViewWeatherIcon.getContext(), weatherIcon.getDrawableId()));

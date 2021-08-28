@@ -13,7 +13,7 @@ public class DateUtil {
 
     public static final int DAYS_OF_WEEK = 7;
 
-    //TODO replace to getNextWeekDaysFromNow
+
     public static String getToday() {
         Date date = getTodayDate();
         DateFormat formatter = getFormatter();
@@ -26,7 +26,7 @@ public class DateUtil {
     }
 
     public static List<String> getNextWeekDaysFromNow() {
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = WeatherCalendar.getCurrentInstance();
         DateFormat formatter = getFormatter();
         List<String> stringsDates = new ArrayList<>();
         for (int i = 1; i <= DAYS_OF_WEEK; i++) {
