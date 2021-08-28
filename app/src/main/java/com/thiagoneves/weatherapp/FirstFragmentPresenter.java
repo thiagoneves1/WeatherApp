@@ -80,6 +80,10 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
         callInfoForTheDay(city, mNextWeekDaysFromNow.get(mCurrentPosition));
     }
 
+    //TODO add this one in the repository, and save the data in the room database as cache,
+    // and reuse it when valid, and clear the data from DB when we don't need of this anymore.
+    // When we will load, check if we already has the day in database, and get from there when we have
+
     private void callInfoForTheDay(City city, String day) {
         Call<List<CityWeatherInfoDay>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(city.getWoeid(), day);
 
