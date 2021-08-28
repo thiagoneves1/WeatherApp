@@ -43,7 +43,7 @@ public class WeatherRepository {
 
     //TODO and save the data in the room database as cache,
     // and reuse it when valid, and clear the data from DB when we don't need of this anymore.
-    // When we will load, check if we already has the day in database, and get from there when we have
+    // When we will load, check if we already has the day in database, and get from there when we have and create the unit tests for all flow here
     public void callInfoForTheDay(RepositoryListener listener) {
 
         Call<List<CityWeatherInfoDay>> weatherByWoeidAndDate = mWeatherService.getWeatherByWoeidAndDate(mCity.getWoeid(), mNextWeekDaysFromNow.get(mCurrentPosition));
