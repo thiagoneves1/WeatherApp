@@ -38,7 +38,7 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mPresenter = new FirstFragmentPresenter(this);
+        mPresenter = new FirstFragmentPresenter(this, getContext());
 
         List<Weather> weathers = new ArrayList<>();
         mAdapter = new WeatherDayAdapter(weathers, mPresenter);
