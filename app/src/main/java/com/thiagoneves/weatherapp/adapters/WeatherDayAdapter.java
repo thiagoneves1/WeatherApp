@@ -46,7 +46,7 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CityWeatherInfoDay cityWeatherInfoDay = mWathers.get(position).getCityWeatherInfos().get(0); //TODO to adjust this
 
-        holder.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
+        holder.textViewDay.setText(cityWeatherInfoDay.getDayOfWeek(holder.textViewDay.getContext()));
         holder.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
         holder.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
         holder.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));

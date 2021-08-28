@@ -1,5 +1,6 @@
 package com.thiagoneves.weatherapp;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,7 +39,7 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
         mBinding = FragmentDetailBinding.inflate(inflater, container, false);
         mDetailContainerBinding = DetailContainerBinding.bind(mBinding.getRoot());
         mPresenter = new DetailFragmentPresenter(this);
-        mPresenter.loadDataFromSafeArgs(getArguments());
+        mPresenter.loadDataFromSafeArgs(getContext(), getArguments());
 
         return mBinding.getRoot();
     }
@@ -49,9 +50,9 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     }
 
     @Override
-    public void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay) {
+    public void showDetailCityWeather(Context context, CityWeatherInfoDay cityWeatherInfoDay) {
         mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
-        mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getApplicableDate());
+        mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getDayOfWeek(context));
         mDetailContainerBinding.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
         mDetailContainerBinding.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
         mDetailContainerBinding.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));

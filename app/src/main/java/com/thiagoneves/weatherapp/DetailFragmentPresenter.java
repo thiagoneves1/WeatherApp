@@ -25,8 +25,8 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
     public void unsubscribe() {}
 
     @Override
-    public void loadDataFromSafeArgs(Bundle args) {
+    public void loadDataFromSafeArgs(Context context, Bundle args) {
         CityWeatherInfoDay cityWeatherInfoDay = DetailFragmentArgs.fromBundle(args).getCityWeatherInfoDay();
-        mView.showDetailCityWeather(cityWeatherInfoDay);
+        mView.showDetailCityWeather(context, cityWeatherInfoDay);
     }
 }

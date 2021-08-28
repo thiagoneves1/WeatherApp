@@ -1,5 +1,6 @@
 package com.thiagoneves.weatherapp.interfaces;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
@@ -8,13 +9,13 @@ public interface DetailFragmentContract {
 
     interface View {
 
-        void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay);
+        void showDetailCityWeather(Context context, CityWeatherInfoDay cityWeatherInfoDay);
 
     }
 
     interface Presenter extends BasePresenter {
 
-        void loadDataFromSafeArgs(Bundle args);
+        void loadDataFromSafeArgs(Context context, Bundle args);
 
     }
 }

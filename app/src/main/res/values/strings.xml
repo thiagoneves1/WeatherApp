@@ -9,4 +9,14 @@
     <string name="humidity">Humidity</string>
     <string name="windspeed">Windspeed</string>
     <string name="windspeed_fromat">%1$s Mph</string>
+
+    <string name="sunday">Sunday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+
+
 </resources>
