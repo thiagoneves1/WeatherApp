@@ -5,7 +5,7 @@ import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 
 public interface FirstFragmentContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
 
         void showLoadingUI();
 

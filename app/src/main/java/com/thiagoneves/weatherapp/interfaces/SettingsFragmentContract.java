@@ -6,7 +6,7 @@ import android.widget.RadioGroup;
 
 public interface SettingsFragmentContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
 
         void showRadioValues(RadioButton radioButton, RadioGroup.LayoutParams params);
 

@@ -34,7 +34,6 @@ public class FirstFragmentPresenter implements FirstFragmentContract.Presenter {
 
     public FirstFragmentPresenter (@NonNull FirstFragmentContract.View view) {
         mView = view;
-        mView.setPresenter(this);
         mWeatherService = API.getApi().create(WeatherService.class);
         mFirstLoad = true;
     }

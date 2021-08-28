@@ -6,7 +6,7 @@ import com.thiagoneves.weatherapp.model.CityWeatherInfoDay;
 
 public interface DetailFragmentContract {
 
-    interface View extends BaseView<Presenter> {
+    interface View {
 
         void showDetailCityWeather(CityWeatherInfoDay cityWeatherInfoDay);
 

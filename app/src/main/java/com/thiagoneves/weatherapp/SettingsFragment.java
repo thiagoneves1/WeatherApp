@@ -53,11 +53,6 @@ public class SettingsFragment extends Fragment implements SettingsFragmentContra
     }
 
     @Override
-    public void setPresenter(SettingsFragmentContract.Presenter presenter) {
-        this.mPresenter = presenter;
-    }
-
-    @Override
     public void showRadioValues(RadioButton radioButton, RadioGroup.LayoutParams params) {
         binding.radioGroupCities.addView(radioButton, params);
     }

@@ -38,8 +38,7 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //TODO is better create on the activity?
-        new FirstFragmentPresenter(this);
+        mPresenter = new FirstFragmentPresenter(this);
 
         List<Weather> weathers = new ArrayList<>();
         mAdapter = new WeatherDayAdapter(weathers, mPresenter);
@@ -90,11 +89,6 @@ public class FirstFragment extends Fragment implements FirstFragmentContract.Vie
     public void onPause() {
         super.onPause();
         mPresenter.unsubscribe();
-    }
-
-    @Override
-    public void setPresenter(@NonNull FirstFragmentContract.Presenter presenter) {
-        mPresenter = presenter;
     }
 
 }

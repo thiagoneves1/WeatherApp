@@ -16,7 +16,6 @@ public class DetailFragmentPresenter implements DetailFragmentContract.Presenter
 
     public DetailFragmentPresenter(@NonNull DetailFragmentContract.View view) {
         mView = view;
-        mView.setPresenter(this);
     }
 
     @Override

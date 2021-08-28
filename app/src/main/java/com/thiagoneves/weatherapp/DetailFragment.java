@@ -32,15 +32,10 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
                              Bundle savedInstanceState) {
 
         binding = FragmentDetailBinding.inflate(inflater, container, false);
-        new DetailFragmentPresenter(this); //TODO put this on the Activity or remove the setPresenter
+        mPresenter = new DetailFragmentPresenter(this);
         mPresenter.loadDataFromSafeArgs(getArguments());
 
         return binding.getRoot();
-    }
-
-    @Override
-    public void setPresenter(DetailFragmentContract.Presenter presenter) {
-        mPresenter = presenter;
     }
 
     @Override

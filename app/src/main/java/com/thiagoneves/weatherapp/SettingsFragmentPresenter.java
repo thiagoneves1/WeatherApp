@@ -23,7 +23,6 @@ public class SettingsFragmentPresenter implements SettingsFragmentContract.Prese
 
     public SettingsFragmentPresenter(@NonNull SettingsFragmentContract.View view) {
         mView = view;
-        mView.setPresenter(this);
     }
 
     @Override
