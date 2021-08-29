@@ -53,13 +53,13 @@ public class DetailFragment extends Fragment implements DetailFragmentContract.V
     public void showDetailCityWeather(Context context, CityWeatherInfoDay cityWeatherInfoDay) {
         mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getWeatherStateName());
         mDetailContainerBinding.textViewDay.setText(cityWeatherInfoDay.getDayOfWeek(context));
-        mDetailContainerBinding.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
-        mDetailContainerBinding.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
-        mDetailContainerBinding.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));
+        mDetailContainerBinding.textMin.setText(getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp())));
+        mDetailContainerBinding.textMax.setText(getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp())));
+        mDetailContainerBinding.textCurrent.setText(getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp())));
         mDetailContainerBinding.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
         WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
         mDetailContainerBinding.imageIconWeather.setBackground(ContextCompat.getDrawable(getContext(), weatherIcon.getDrawableId()));
         mDetailContainerBinding.textHumidityValue.setText(cityWeatherInfoDay.getHumidity());
-        mDetailContainerBinding.textWindspeedValue.setText(getString(R.string.windspeed_fromat, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getWindSpeed())));
+        mDetailContainerBinding.textWindspeedValue.setText(getString(R.string.windspeed_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getWindSpeed())));
     }
 }

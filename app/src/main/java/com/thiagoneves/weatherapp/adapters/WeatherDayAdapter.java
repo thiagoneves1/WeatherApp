@@ -45,11 +45,11 @@ public class WeatherDayAdapter extends RecyclerView.Adapter<WeatherDayAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CityWeatherInfoDay cityWeatherInfoDay = mWathers.get(position).getCityWeatherInfos().get(0); //TODO to adjust this
-
+        Context context = holder.textMin.getContext();
         holder.textViewDay.setText(cityWeatherInfoDay.getDayOfWeek(holder.textViewDay.getContext()));
-        holder.textMin.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp()));
-        holder.textMax.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp()));
-        holder.textCurrent.setText(FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp()));
+        holder.textMin.setText(context.getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMinTemp())));
+        holder.textMax.setText(context.getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getMaxTemp())));
+        holder.textCurrent.setText(context.getString(R.string.temp_format, FormatterUtil.getFormattedValue(cityWeatherInfoDay.getCurrentTemp())));
         holder.textWeatherName.setText(cityWeatherInfoDay.getWeatherStateName());
         WeatherIcon weatherIcon = WeatherIcon.getByApiName(cityWeatherInfoDay.getWeatherStateName());
         holder.imageViewWeatherIcon.setBackground(ContextCompat.getDrawable(holder.imageViewWeatherIcon.getContext(), weatherIcon.getDrawableId()));
