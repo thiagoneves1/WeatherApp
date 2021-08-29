@@ -9,7 +9,7 @@ This application was developed using the MPV with Repository. Each part has your
 Views only handle the user interactions and update the UI.<br />
 Presenter controls the logic and calls the new data from the repository and sends the new model for the View to update the UI.<br />
 Repository manages the model, using API and Database, and interacts with the presenter with the model updated.<br />
-
+![architecture](mvp.png)
 
 # Built With
 DataBinding - Field and method binding for Android views<br />
@@ -22,6 +22,7 @@ Junit - JUnit is a simple framework to write repeatable tests. It is an instance
 
 # UI
 Using attributes to enable the app to run with good colors in dark and light mode. Note: not completely implemented, still work in progress.<br />
+![main](main.png) ![detail](detail.png) ![settings](settings.png)
 
 # Requirements
 Android 5.0 (API 21) or above<br />
